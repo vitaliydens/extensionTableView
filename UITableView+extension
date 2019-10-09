@@ -1,0 +1,19 @@
+extension UITableView {
+    
+    func register<T: BaseTVCell>(cellType: T.Type) {
+        let identifier = "\(cellType)"
+        if let nib = T.cellNib {
+            self.register(nib, forCellReuseIdentifier: identifier)
+        } else {
+            self.register(cellType, forCellReuseIdentifier: identifier)
+        }
+    }
+    
+    func cell<T: BaseTVCell>(cellType: T.Type) -> T? {
+        let identifier = "\(cellType)"
+        guard let cell = self.dequeueReusableCell(withIdentifier: "\(identifier)") as? T else {
+            return nil
+        }
+        return cell
+    }
+}
